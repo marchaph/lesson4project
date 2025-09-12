@@ -6,7 +6,10 @@
     <body>
         <a-scene>
         <a-plane height="20" width="20" rotation="-90 0 0" color="#ccffaa"></a-plane>
-        <audio src="https://raw.githubusercontent.com/marchaph.github.io/lesson4project/sound1.mp3" controls autoplay loop></audio>
+        <script>
+            var audio = new Audio('https://raw.githubusercontent.com/marchaph.github.io/lesson4project/sound1.mp3');
+            audio.play();
+        </script>
         <a-box
             position="0 1 -5"
             depth="2"
