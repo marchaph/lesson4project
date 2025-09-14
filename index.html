@@ -4,12 +4,23 @@
         <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     </head>
     <body>
+        <button id="startButton">Start Sound</button>
         <a-scene>
+
+        <a-assets>
+    <audio id="my-sound-asset" src="https://marchaph.github.io/lesson4project/sound1.mp3"></audio>
+  </a-assets>
+<script>
+  document.getElementById('startButton').addEventListener('click', function () {
+    // Find the entity with the sound component and play it
+    const soundEntity = document.querySelector('[sound]');
+    if (soundEntity && soundEntity.components.sound) {
+      soundEntity.components.sound.play();
+    }
+  });
+</script>
+            
         <a-plane height="20" width="20" rotation="-90 0 0" color="#ccffaa"></a-plane>
-      <a-assets>
-        <audio id="myAudio" src="sound1.mp3"></audio>
-    </a-assets>
-            <a-entity sound="src: #myAudio; autoplay: true; loop: true"></a-entity>
         <a-box
             position="0 1 -5"
             depth="2"
@@ -89,6 +100,8 @@
                     ">
             </a-tetrahedron>
             <a-camera><a-cursor color="#ffffff"></a-cursor></a-camera>
+
+            
         </a-scene>
     </body>
 </html>
