@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>VR Memory Match</title>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <!-- Camera + cursor for gaze/click interaction -->
+      <a-entity position="0 1.6 0">
+        <a-camera>
+          <a-cursor color="yellow"></a-cursor>
+        </a-camera>
+      </a-entity>
+
+      <!-- Cards will be generated here -->
+      <a-entity id="card-container"></a-entity>
+
+      <!-- Simple feedback text -->
+      <a-entity
+        id="status"
+        position="0 2 -2"
+        text="value: Match the cards!; color: white; align: center"
+      ></a-entity>
+
+      <!-- Sky background -->
+      <a-sky color="#333"></a-sky>
+    </a-scene>
+
+    <script>
+      // Simple 6-card game (3 pairs)
+      const symbols = ["🍎", "⭐", "🍌"];
+      let cards = [...symbols, ...symbols]; // duplicate to make pairs
+      shuffle(cards);
+
+      const container = document.getElementById("card-container");
+
+      // Layout variables
+      const startX = -1.5;
+      const startY = 1.5;
+      const spacing = 1.5;
+
+      // Track game state
+      let firstPick = null;
+      let lock = false;
+      let matchesFound = 0;
+
+      // Generate cards
+      cards.forEach((symbol, i) => {
+        const card = document.createElement("a-box");
+        card.setAttribute("depth", "0.1");
+        card.setAttribute("height", "1");
+        card.setAttribute("width", "1");
+        card.setAttribute("color", "blue");
+        card.setAttribute("position", {
+          x: startX + (i % 3) * spacing,
+          y: startY - Math.floor(i / 3) * spacing,
+          z: -3,
+        });
+
+        // Store hidden symbol
+        card.dataset.symbol = symbol;
+        card.dataset.flipped = "false";
+
+        // Card click handler
+        card.addEventListener("click", function () {
+          if (lock || card.dataset.flipped === "true") return;
+
+          flipCard(card);
+
+          if (!firstPick) {
+            firstPick = card;
+          } else {
+            // Second card picked
+            if (firstPick.dataset.symbol === card.dataset.symbol) {
+              // Match!
+              firstPick.setAttribute("color", "green");
+              card.setAttribute("color", "green");
+              firstPick.dataset.flipped = "true";
+              card.dataset.flipped = "true";
+              firstPick = null;
+              matchesFound++;
+
+              if (matchesFound === symbols.length) {
+                document
+                  .getElementById("status")
+                  .setAttribute("text", "value: You win! 🎉");
+              }
+            } else {
+              // Not a match → flip back after a delay
+              lock = true;
+              setTimeout(() => {
+                hideCard(firstPick);
+                hideCard(card);
+                firstPick = null;
+                lock = false;
+              }, 1000);
+            }
+          }
+        });
+
+        container.appendChild(card);
+      });
+
+      // Utility: Shuffle array
+      function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      // Flip card → show symbol
+      function flipCard(card) {
+        card.setAttribute("color", "white");
+        card.setAttribute("text", {
+          value: card.dataset.symbol,
+          align: "center",
+          color: "black",
+          width: 4,
+        });
+      }
+
+      // Hide card → back to blue
+      function hideCard(card) {
+        card.setAttribute("color", "blue");
+        card.setAttribute("text", "value: ");
+      }
+    </script>
+  </body>
+</html>
