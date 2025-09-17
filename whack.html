@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <!-- Camera + Cursor (for clicking with mouse or VR controller) -->
+      <a-entity position="0 1.6 3">
+        <a-camera>
+          <a-cursor fuse="false" raycaster="objects: .mole"></a-cursor>
+        </a-camera>
+      </a-entity>
+
+      <!-- Ground Plane -->
+      <a-plane position="0 0 -3" rotation="-90 0 0" width="6" height="6" color="#7BC8A4"></a-plane>
+
+      <!-- Grid of Mole Holes -->
+      <a-entity id="game-board"></a-entity>
+
+      <!-- HUD: Score and Timer -->
+      <a-text id="scoreText" value="Score: 0" position="-1.5 2 -2" color="black" width="4"></a-text>
+      <a-text id="timerText" value="Time: 20" position="0.5 2 -2" color="black" width="4"></a-text>
+    </a-scene>
+
+    <script>
+      const board = document.getElementById("game-board");
+      const scoreText = document.getElementById("scoreText");
+      const timerText = document.getElementById("timerText");
+
+      let score = 0;
+      let timeLeft = 20;
+      let gameActive = true;
+
+      const rows = 3;
+      const cols = 3;
+      const spacing = 1.5;
+
+      let moleEntities = [];
+
+      // Create grid of mole "holes"
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const mole = document.createElement("a-sphere");
+          mole.setAttribute("class", "mole");
+          mole.setAttribute("radius", "0.3");
+          mole.setAttribute("color", "#654321");
+          mole.setAttribute("position", {
+            x: (c - 1) * spacing,
+            y: 0,
+            z: -2 - r * spacing
+          });
+          mole.setAttribute("visible", "false");
+
+          // Click event for hitting mole
+          mole.addEventListener("click", () => {
+            if (mole.getAttribute("visible") === true && gameActive) {
+              mole.setAttribute("visible", "false");
+              score += 10;
+              scoreText.setAttribute("value", "Score: " + score);
+            }
+          });
+
+          board.appendChild(mole);
+          moleEntities.push(mole);
+        }
+      }
+
+      // Function to randomly pop up moles
+      function popMole() {
+        if (!gameActive) return;
+
+        // Hide all moles
+        moleEntities.forEach(m => m.setAttribute("visible", "false"));
+
+        // Random mole
+        const randomMole = moleEntities[Math.floor(Math.random() * moleEntities.length)];
+        randomMole.setAttribute("visible", "true");
+
+        // Mole stays visible for a short time
+        setTimeout(() => {
+          if (randomMole.getAttribute("visible") === true) {
+            randomMole.setAttribute("visible", "false");
+          }
+          if (gameActive) popMole();
+        }, 1000 + Math.random() * 1000);
+      }
+
+      // Timer countdown
+      const timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+          timeLeft--;
+          timerText.setAttribute("value", "Time: " + timeLeft);
+        } else {
+          gameActive = false;
+          clearInterval(timerInterval);
+          timerText.setAttribute("value", "Game Over!");
+        }
+      }, 1000);
+
+      // Start the first mole
+      popMole();
+    </script>
+  </body>
+</html>
