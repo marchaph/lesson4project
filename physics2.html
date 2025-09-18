@@ -2,26 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>A-Frame 1.7.0 Physics Test</title>
-
-  <!-- ✅ Allow eval + whitelist aframe.io and jsdelivr -->
-  <meta http-equiv="Content-Security-Policy"
-        content="script-src 'self' 'unsafe-eval' https://aframe.io https://cdn.jsdelivr.net;">
+  <title>A-Frame 1.7.0 Physics with Ammo.js</title>
 
   <!-- ✅ A-Frame 1.7.0 -->
   <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
 
-  <!-- ✅ Cannon-ES UMD build
-  <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.umd.js"></script> -->
-
+  <!-- ✅ Ammo.js WASM build -->
   <script src="https://cdn.jsdelivr.net/npm/ammojs-typed@1.0.6/ammo.wasm.js"></script>
-  
-  <!-- ✅ A-Frame Physics System v5 -->
+
+  <!-- ✅ A-Frame Physics System v5 (supports Ammo) -->
   <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@5.0.0/dist/aframe-physics-system.min.js"></script>
+
+  <style>
+    html, body { margin: 0; height: 100%; }
+    a-scene { width: 100%; height: 100vh; display: block; }
+  </style>
 </head>
 <body>
-  <!-- <a-scene physics="driver: cannon; gravity: 0 -9.8 0; debug: true"> -->
-  <a-scene physics="driver: ammo; debug: true">  
+  <!-- Force Ammo driver; debug: true shows collider wireframes -->
+  <a-scene physics="driver: ammo; gravity: 0 -9.8 0; debug: true">
 
     <!-- Camera -->
     <a-entity camera position="0 2 5" look-controls></a-entity>
@@ -39,7 +38,7 @@
               physics-material="restitution: 0.9; friction: 0.3"
               position="0 4 -2" radius="0.5" color="#EF2D5E"></a-sphere>
 
-    <a-sky color="#ECECEC"></a-sky>
+    <a-sky color="#ECECCC"></a-sky>
   </a-scene>
 </body>
 </html>
