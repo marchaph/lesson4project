@@ -1,8 +1,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <!-- A-Frame 1.7.0 -->
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"></script>
+
+    <!-- Cannon-ES (UMD build) -->
+    <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.umd.js"></script>
+
+    <!-- A-Frame physics system v5 (modern, works with Three r173) -->
     <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@5.0.0/dist/aframe-physics-system.min.js"></script>
   </head>
   <body>
@@ -15,11 +20,11 @@
                width="10" height="10" color="#7BC8A4"></a-plane>
 
       <!-- Static Box -->
-      <a-box static-body position="0 0.5 -2" depth="1" height="1" width="1"
-             color="#4CC3D9"></a-box>
+      <a-box static-body position="0 0.5 -2"
+             depth="1" height="1" width="1" color="#4CC3D9"></a-box>
 
       <!-- Falling Sphere -->
-      <a-sphere dynamic-body="shape: sphere; mass: 1" 
+      <a-sphere dynamic-body="shape: sphere; mass: 1"
                 physics-material="restitution:0.9; friction:0.3"
                 position="0 4 -2" radius="0.5" color="#EF2D5E"></a-sphere>
 
