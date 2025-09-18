@@ -1,34 +1,42 @@
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <!-- A-Frame 1.7.0 -->
-    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>A-Frame 1.7.0 Physics Test</title>
 
-    <!-- Cannon-ES UMD build -->
-    <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.umd.js"></script>
+  <!-- ✅ Allow eval for Cannon-ES / physics system -->
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net;">
 
-    <!-- A-Frame Physics System v5 (modern, supports cannon-es) -->
-    <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@5.0.0/dist/aframe-physics-system.min.js"></script>
-  </head>
-  <body>
-    <!-- Force driver:cannon to avoid Ammo -->
-    <a-scene physics="driver: cannon; gravity: 0 -9.8 0; debug: true">
-      <!-- Camera -->
-      <a-entity camera look-controls position="0 2 5"></a-entity>
+  <!-- ✅ A-Frame 1.7.0 -->
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
 
-      <!-- Ground -->
-      <a-plane static-body rotation="-90 0 0" width="10" height="10" color="#7BC8A4"></a-plane>
+  <!-- ✅ Cannon-ES UMD build (safe for <script>) -->
+  <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.umd.js"></script>
 
-      <!-- Static Box -->
-      <a-box static-body position="0 0.5 -2" depth="1" height="1" width="1" color="#4CC3D9"></a-box>
+  <!-- ✅ A-Frame Physics System v5 (modern, works with Three r173) -->
+  <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@5.0.0/dist/aframe-physics-system.min.js"></script>
+</head>
+<body>
+  <!-- ✅ Force cannon driver, enable debug -->
+  <a-scene physics="driver: cannon; gravity: 0 -9.8 0; debug: true">
 
-      <!-- Falling Sphere -->
-      <a-sphere position="0 4 -2" radius="0.5" color="#EF2D5E"
-                dynamic-body="shape: sphere; mass: 1"
-                physics-material="restitution: 0.9; friction: 0.3">
-      </a-sphere>
+    <!-- Camera -->
+    <a-entity camera position="0 2 5" look-controls></a-entity>
 
-      <a-sky color="#ECECEC"></a-sky>
-    </a-scene>
-  </body>
+    <!-- Ground plane (static body) -->
+    <a-plane static-body rotation="-90 0 0"
+             width="10" height="10" color="#7BC8A4"></a-plane>
+
+    <!-- Static box -->
+    <a-box static-body position="0 0.5 -2"
+           depth="1" height="1" width="1" color="#4CC3D9"></a-box>
+
+    <!-- Falling sphere -->
+    <a-sphere dynamic-body="shape: sphere; mass: 1"
+              physics-material="restitution: 0.9; friction: 0.3"
+              position="0 4 -2" radius="0.5" color="#EF2D5E"></a-sphere>
+
+    <a-sky color="#ECECEC"></a-sky>
+  </a-scene>
+</body>
 </html>
