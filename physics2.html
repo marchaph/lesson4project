@@ -11,14 +11,17 @@
   <!-- ✅ A-Frame 1.7.0 -->
   <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
 
-  <!-- ✅ Cannon-ES UMD build -->
-  <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.umd.js"></script>
+  <!-- ✅ Cannon-ES UMD build
+  <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.umd.js"></script> -->
 
+  <script src="https://cdn.jsdelivr.net/npm/ammojs-typed@1.0.6/ammo.wasm.js"></script>
+  
   <!-- ✅ A-Frame Physics System v5 -->
   <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@5.0.0/dist/aframe-physics-system.min.js"></script>
 </head>
 <body>
-  <a-scene physics="driver: cannon; gravity: 0 -9.8 0; debug: true">
+  <!-- <a-scene physics="driver: cannon; gravity: 0 -9.8 0; debug: true"> -->
+  <a-scene physics="driver: ammo; debug: true">  
 
     <!-- Camera -->
     <a-entity camera position="0 2 5" look-controls></a-entity>
