@@ -4,26 +4,26 @@
   <meta charset="utf-8" />
   <title>A-Frame 1.7.0 Physics Test</title>
 
-  <!-- ✅ Allow eval for Cannon-ES / physics system -->
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net;">
+  <!-- ✅ Allow eval + whitelist aframe.io and jsdelivr -->
+  <meta http-equiv="Content-Security-Policy"
+        content="script-src 'self' 'unsafe-eval' https://aframe.io https://cdn.jsdelivr.net;">
 
   <!-- ✅ A-Frame 1.7.0 -->
   <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
 
-  <!-- ✅ Cannon-ES UMD build (safe for <script>) -->
+  <!-- ✅ Cannon-ES UMD build -->
   <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.umd.js"></script>
 
-  <!-- ✅ A-Frame Physics System v5 (modern, works with Three r173) -->
+  <!-- ✅ A-Frame Physics System v5 -->
   <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@5.0.0/dist/aframe-physics-system.min.js"></script>
 </head>
 <body>
-  <!-- ✅ Force cannon driver, enable debug -->
   <a-scene physics="driver: cannon; gravity: 0 -9.8 0; debug: true">
 
     <!-- Camera -->
     <a-entity camera position="0 2 5" look-controls></a-entity>
 
-    <!-- Ground plane (static body) -->
+    <!-- Ground plane -->
     <a-plane static-body rotation="-90 0 0"
              width="10" height="10" color="#7BC8A4"></a-plane>
 
