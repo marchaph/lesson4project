@@ -1,11 +1,10 @@
-<!DOCTYPE HTML>
 <html>
   <head>
-    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   </head>
   <body>
     <a-scene>
-      <!-- Camera + Cursor (for clicking with mouse or VR controller) -->
+      <!-- Camera + Cursor (mouse or VR controller) -->
       <a-entity position="0 1.6 3">
         <a-camera>
           <a-cursor fuse="false" raycaster="objects: .mole"></a-cursor>
@@ -21,6 +20,16 @@
       <!-- HUD: Score and Timer -->
       <a-text id="scoreText" value="Score: 0" position="-1.5 2 -2" color="black" width="4"></a-text>
       <a-text id="timerText" value="Time: 20" position="0.5 2 -2" color="black" width="4"></a-text>
+
+      <!-- Audio assets -->
+      <a-assets>
+        <audio id="hit-sound" src="https://cdn.jsdelivr.net/gh/naptha/tonejs-instruments@master/samples/drum/Clap.wav"></audio>
+        <audio id="gameover-sound" src="https://cdn.jsdelivr.net/gh/naptha/tonejs-instruments@master/samples/drum/Kick.wav"></audio>
+        <audio id="bg-music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_eb5f08fba4.mp3?filename=fun-game-loop-110997.mp3"></audio>
+      </a-assets>
+
+      <!-- Background Music -->
+      <a-entity sound="src: #bg-music; autoplay: true; loop: true; volume: 0.4"></a-entity>
     </a-scene>
 
     <script>
@@ -52,12 +61,16 @@
           });
           mole.setAttribute("visible", "false");
 
-          // Click event for hitting mole
+          // Sound effect on hit
           mole.addEventListener("click", () => {
             if (mole.getAttribute("visible") === true && gameActive) {
               mole.setAttribute("visible", "false");
               score += 10;
               scoreText.setAttribute("value", "Score: " + score);
+
+              // Play hit sound
+              let hit = new Audio(document.querySelector("#hit-sound").src);
+              hit.play();
             }
           });
 
@@ -95,6 +108,10 @@
           gameActive = false;
           clearInterval(timerInterval);
           timerText.setAttribute("value", "Game Over!");
+
+          // Play game over sound
+          let endSound = new Audio(document.querySelector("#gameover-sound").src);
+          endSound.play();
         }
       }, 1000);
 
