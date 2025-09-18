@@ -1,11 +1,12 @@
 <html>
   <head>
-     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@5.0.0/dist/aframe-physics-system.min.js"></script>
+    <meta charset="utf-8" />
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@5.0.0/dist/aframe-physics-system.min.js"></script>
   </head>
   <body>
-    <a-scene physics="gravity: -9.8">
+    <a-scene physics="driver: cannon; gravity: -9.8; debug: true">
       <!-- Camera -->
       <a-entity camera position="0 2 5" look-controls></a-entity>
 
@@ -14,11 +15,13 @@
                width="10" height="10" color="#7BC8A4"></a-plane>
 
       <!-- Static Box -->
-      <a-box static-body position="0 0.5 -2" depth="1" height="1" width="1" color="#4CC3D9"></a-box>
+      <a-box static-body position="0 0.5 -2" depth="1" height="1" width="1"
+             color="#4CC3D9"></a-box>
 
       <!-- Falling Sphere -->
-      <a-sphere dynamic-body position="0 4 -2" radius="0.5" color="#EF2D5E"
-                physics-material="restitution:0.9; friction:0.2"></a-sphere>
+      <a-sphere dynamic-body="shape: sphere; mass: 1" 
+                physics-material="restitution:0.9; friction:0.3"
+                position="0 4 -2" radius="0.5" color="#EF2D5E"></a-sphere>
 
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
