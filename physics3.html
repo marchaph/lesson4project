@@ -2,23 +2,14 @@
 <html>
     <head>
         <title>Colliding Shapes</title>
-        <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-        <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
-    
+        <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+       <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+       <!--<script src="https://unpkg.com/aframe-physics-system@4.0.1/dist/aframe-physics-system.min.js"></script>-->
     </head>
     <body>
-        <a-scene physics="gravity:-4.5">
+        <a-scene physics="debug:true; gravity:-9.8">
     
             <a-sky color="lightblue"></a-sky>
-
-            <!-- Camera -->
-            <a-entity camera look-controls
-                wasd-controls
-                position="0 1.6 0"
-                constraint="collideConnected:true"
-                static-body
-            ></a-entity>
-            
         
             <!-- Floor -->
             <a-plane static-body
@@ -29,21 +20,19 @@
                 rotation="-90 0 0"
             ></a-plane>
         
-            <!-- Ramming box -->
-            <a-box 
-                position="-5 1 -10" width="4" height="2" depth="1"
-                color="indigo"
-                animation="
-                    property: position;
-                    from: -5 1 -10;
-                    to: 5 1 -10;
-                    dur: 2000;
-                    ">
+            <!-- Fixed box -->
+            <a-box static-body
+                position="0 2 -5"
+                width="4"
+                height="2"
+                depth="1"
+                rotation="20 0 -20"
+                color="purple">
             </a-box>
             
-            <!-- Create a Dynamic Sphere -->
+            <!-- Freely Moving Sphere -->
             <a-sphere dynamic-body
-                position="0 1 -10"
+                position="0 5 -5"
                 color="red"
             ></a-sphere>
             
