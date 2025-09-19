@@ -8,7 +8,10 @@
     </head>
     <body>
         <a-scene physics="debug:true; gravity:-9.8">
-    
+            <a-camera 
+                position="0 20 -15"
+                rotation="-90 0 0">
+            </a-camera>
             <a-sky color="lightblue"></a-sky>
         
             <!-- Floor -->
@@ -27,7 +30,7 @@
                 height="1"
                 depth="0.5"
                 rotation="0 0 0"
-                color="#0000FF">
+                color="#000000">
             </a-box>
             
             <!-- Freely Moving Sphere -->
