@@ -14,7 +14,7 @@
             <!-- Floor -->
             <a-plane static-body
                 color="tan"
-                position="0 0 0"
+                position="0 0 -5"
                 width="30"
                 height="30"
                 rotation="-90 0 0"
@@ -22,17 +22,18 @@
         
             <!-- Fixed box -->
             <a-box static-body
-                position="0 2 -5"
-                width="4"
-                height="2"
-                depth="1"
-                rotation="20 0 -20"
-                color="purple">
+                position="0 1 -5"
+                width="2"
+                height="1"
+                depth="0.5"
+                rotation="0 0 0"
+                color="#0000FF">
             </a-box>
             
             <!-- Freely Moving Sphere -->
             <a-sphere dynamic-body
                 position="0 5 -5"
+                radius="1"
                 color="red"
             ></a-sphere>
             
