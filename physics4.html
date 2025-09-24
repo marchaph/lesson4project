@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Colliding Shapes</title>
+        <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+       <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+       <!--<script src="https://unpkg.com/aframe-physics-system@4.0.1/dist/aframe-physics-system.min.js"></script>-->
+    </head>
+    <body>
+        <a-scene physics="debug:true; gravity:-9.8">
+    
+            <a-sky color="lightblue"></a-sky>
+        
+            <!-- Floor -->
+            <a-plane static-body
+                color="tan"
+                position="0 0 0"
+                width="50"
+                height="50"
+                rotation="-90 0 0"
+            ></a-plane>
+        
+            <!-- Fixed box -->
+            <a-box static-body
+                position="-10 1 -15"
+                width="2"
+                height="1"
+                depth="0.5"
+                rotation="0 0 -20"
+                color="black">
+            </a-box>
+            
+            <!-- Freely Moving Sphere -->
+            <a-sphere dynamic-body
+                position="-10 5 -15"
+                radius="0.25"
+                color="red"
+            ></a-sphere>
+            
+            <!-- Freely Moving Sphere -->
+            <a-sphere dynamic-body
+                position="-10 8 -15"
+                radius="0.25"
+                color="green"
+            ></a-sphere>
+            
+            <!-- Freely Moving Sphere -->
+            <a-sphere dynamic-body
+                position="-10 11 -15"
+                radius="0.25"
+                color="red"
+            ></a-sphere>
+            
+            <!-- Domino 1 -->
+            <a-box dynamic-body
+                position="-7 1 -15"
+                width="0.25"
+                height="2"
+                depth="0.5"
+                color="blue"
+            ></a-box>    
+            
+            <!-- Domino 2 -->
+            <a-box dynamic-body
+                position="-5 1 -15"
+                width="0.25"
+                height="2"
+                depth="0.5"
+                color="blue"
+            ></a-box>    
+            
+            <!-- Domino 3 -->
+            <a-box dynamic-body
+                position="-3 1 -15"
+                width="0.25"
+                height="2"
+                depth="0.5"
+                color="blue"
+            ></a-box>    
+            
+            <!-- Domino 4 -->
+            <a-box dynamic-body
+                position="-1 1.5 -15"
+                width="0.25"
+                height="3"
+                depth="0.5"
+                color="blue"
+            ></a-box>    
+            
+            <!-- Domino 5 -->
+            <a-box dynamic-body
+                position="1 1 -15"
+                width="0.25"
+                height="2"
+                depth="0.5"
+                color="blue"
+            ></a-box>    
+            
+            <!-- Domino 6 -->
+            <a-box dynamic-body
+                position="3 1 -15"
+                width="0.25"
+                height="2"
+                depth="0.5"
+                color="blue"
+            ></a-box>    
+            
+            <!-- Box spanning Domino 5 & 6 -->
+            <a-box dynamic-body
+                position="2 2.25 -15"
+                width="2.5"
+                height="0.25"
+                depth="1"
+                color="#ADD8E6"
+            ></a-box>
+            
+            <!-- Spheres resting on top of box -->
+            <a-cylinder dynamic-body
+                position="2 3 -15"
+                height="2"
+                radius="1"
+                color="#ffee94"
+            ></a-cylinder>
+    </a-scene>
+  </body>
+</html>
